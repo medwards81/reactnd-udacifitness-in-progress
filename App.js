@@ -1,14 +1,19 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import AddEntry from './components/AddEntry'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 
 export default class App extends React.Component {
   render() {
     return (
-      <View>
-				<AddEntry />
-				<Text>Hello hello!</Text>
-      </View>
+			<Provider store={createStore(reducer)}>
+	      <View>
+					<AddEntry />
+					<Text>Hello hello!</Text>
+	      </View>
+			</Provider>
     );
   }
 }

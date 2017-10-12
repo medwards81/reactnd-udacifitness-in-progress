@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { getMetricMetaInfo } from '../utils/helpers'
+import { connect } from 'react-redux'
+import { addEntry } from '../actions'
 
 export default class AddEntry extends Component {
 	state = {
