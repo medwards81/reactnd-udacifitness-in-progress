@@ -9,6 +9,7 @@ import { TabNavigator } from 'react-navigation'
 import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
+import Live from './components/Live'
 
 const UdaciStatusBar = ({ backgroundColor, ...props }) => {
 	return (
@@ -33,6 +34,13 @@ const Tabs = TabNavigator({
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     },
   },
+	Live: {
+		screen: Live,
+		navigationOptions: {
+      tabBarLabel: 'Live',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-speedometer' size={30} color={tintColor} />
+    },
+	}
 }, {
   navigationOptions: {
     header: null
@@ -58,7 +66,7 @@ export default class App extends React.Component {
     return (
 			<Provider store={createStore(reducer)}>
 	      <View style={{flex: 1}}>
-					<UdaciStatusBar backgroundColor={purple} barStyle='ligt-content' />
+					<UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
 					<Tabs />
 	      </View>
 			</Provider>
