@@ -32,23 +32,24 @@ class History extends Component {
 	}
 
 	renderItem = ({ today, ...metrics }, formattedDate, key) => (
-		<View style={styles.item}>
-			{today
-				? <View>
-						<DateHeader date={formattedDate} />
-						<Text style={styles.noDataText}>
-							{today}
-						</Text>
-					</View>
-				: <TouchableOpacity onPress={() => console.log('Pressed!')}>
-						<MetricCard
-							metrics={metrics}
-							date={formattedDate}
-						/>
-					</TouchableOpacity>
-			}
-		</View>
-	)
+    <View style={styles.item}>
+      {today
+        ? <View>
+            <DateHeader date={formattedDate}/>
+            <Text style={styles.noDataText}>
+              {today}
+            </Text>
+          </View>
+        : <TouchableOpacity
+            onPress={() => this.props.navigation.navigate(
+              'EntryDetail',
+              { entryId: key }
+            )}
+          >
+            <MetricCard date={formattedDate} metrics={metrics} />
+          </TouchableOpacity>}
+    </View>
+  )
 
 	renderEmptyDate = (formattedDate) => (
 		<View style={styles.item}>

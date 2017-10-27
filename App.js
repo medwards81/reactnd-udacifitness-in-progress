@@ -5,11 +5,13 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import History from './components/History'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import Live from './components/Live'
+import EntryDetail from './components/EntryDetail'
+import { setLocalNotification } from './utils/helpers'
 
 const UdaciStatusBar = ({ backgroundColor, ...props }) => {
 	return (
@@ -28,10 +30,10 @@ const Tabs = TabNavigator({
     },
   },
   AddEntry: {
-    screen: History,
+    screen: AddEntry,
     navigationOptions: {
       tabBarLabel: 'Add Entry',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+      //tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     },
   },
 	Live: {
@@ -61,13 +63,31 @@ const Tabs = TabNavigator({
   }
 })
 
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  EntryDetail: {
+    screen: EntryDetail,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  }
+})
+
 export default class App extends React.Component {
+	componentDidMount() {
+		setLocalNotification()
+	}
   render() {
     return (
 			<Provider store={createStore(reducer)}>
 	      <View style={{flex: 1}}>
 					<UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
-					<Tabs />
+					<MainNavigator />
 	      </View>
 			</Provider>
     );
